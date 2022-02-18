@@ -1,0 +1,64 @@
+﻿
+using StarkSpyduh.Models;
+
+namespace StarkSpyduh.DataAccess
+{
+    public class SpyRepository
+    {
+        private static List<Spy> _Spies = new List<Spy>()
+        {
+        new Spy()
+        {
+            Name = "JmaesBond",
+            Id = 1,
+            Friend = true,
+            Enemy = false,
+            Skill = SkillsType.Poison
+        },
+        new Spy()
+        {
+            Name = "Casper",
+            Id = 2,
+            Friend = false,
+            Enemy = true,
+            Skill = SkillsType.Hacking
+        },
+        new Spy(){
+            Name = "Basil",
+            Id = 3,
+            Friend = true,
+            Enemy = false,
+            Skill = SkillsType.MoneyLoundering
+        },
+        new Spy()
+        {
+            Name = "Hunter",
+            Id = 4,
+            Friend = false,
+            Enemy = true,
+            Skill = SkillsType.Wiretapping
+        },
+        new Spy()
+        {
+            Name = "Moonlight",
+            Id = 5,
+            Friend = false,
+            Enemy= true,
+            Skill = SkillsType.Whistleblower
+        },
+        };
+        internal object GetById(int id)
+        {
+            var match = _Spies.FirstOrDefault(s => s.Id == id);
+            return  match;
+        }
+        internal void Post(Spy newSpy)
+        {
+            _Spies.Add(newSpy);
+        }
+        internal List<Spy> GetAll()
+        {
+            return _Spies;
+        }
+    }
+}
