@@ -1,66 +1,64 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StarkSpyduh.DataAccess;
 using StarkSpyduh.Models;
 
 namespace StarkSpyduh.Controllers
 {
-    [Route("api/spy")]
+    [Route("api/Spies")]
     [ApiController]
     public class SpyController : Controller
     {
-        private static List<Spy> _Spies = new List<Spy>()
-        {
-        new Spy()
-        {
-            Name = "JmaesBond",
-            Id = 1,
-            Friend = true,
-            Enemy = false,
-            Skill = SkillsType.None
-        },
-        new Spy()
-        {
-            Name = "Casper",
-            Id = 2,
-            Friend = false,
-            Enemy = true,
-            Skill = SkillsType.Hacking
-        },
-        new Spy(){
-            Name = "Basil",
-            Id = 3,
-            Friend = true,
-            Enemy = false,
-            Skill = SkillsType.MoneyLoundering
-        },
-        new Spy()
-        {
-            Name = "Hunter",
-            Id = 4,
-            Friend = false,
-            Enemy = true,
-            Skill = SkillsType.Wiretapping
-        },
-        new Spy()
-        {
-            Name = "Moonlight",
-            Id = 5,
-            Friend = false,
-            Enemy= true,
-            Skill = SkillsType.Whistleblower
-        },
-        };
+        SpyRepository _spyRepo = new SpyRepository();
+
         [HttpGet]
         public List<Spy> GetAllSpies()
         {
-            return _Spies;
+            return _spyRepo.GetAll();
+        }
+        [HttpGet("{Id}")]
+        public IActionResult GetSpyById(int id)
+        {
+            var match = _spyRepo.GetById(id);
+
+            if (match == null)
+            {
+                return NotFound();
+            }
+            return Ok(match);
         }
         [HttpPost]
         public IActionResult AddNewSpy(Spy newSpy)
         {
-            _Spies.Add(newSpy);
+            if (newSpy == null)
+            {
+                return NotFound();
+            }
+            else if (!ValidNewSpy(newSpy))
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _spyRepo.Post(newSpy);
+                return Ok(newSpy);
+            }
+        }
+        private bool ValidNewSpy(Spy newSpy)
+        {
+            if (_spyRepo.GetById(newSpy.Id) != null)
+            {
+                return false;
+            }
+            if (newSpy.Name == null)
+            {
+                return false
+            }
+            if (newSpy.Friend != null)
+            {
 
-            return Ok(newSpy);
+            }
+            return true;
         }
     }
 }
