@@ -52,8 +52,9 @@ namespace StarkSpyduh.Controllers
             }
             if (newSpy.Name == null)
             {
-                return false
+                return false;
             }
+            // Neet to Validate Friend and Enemy 
             if (newSpy.Friend != null)
             {
 
