@@ -5,11 +5,11 @@ namespace StarkSpyduh.DataAccess
 {
     public class SpyRepository
     {
-        private static List<Spy> _Spies = new List<Spy>()
+        private static List<Spy> _spies = new List<Spy>()
         {
         new Spy()
         {
-            Name = "JmaesBond",
+            Name = "JamesBond",
             Id = 1,
             Friend = true,
             Enemy = false,
@@ -49,16 +49,21 @@ namespace StarkSpyduh.DataAccess
         };
         internal object GetById(int id)
         {
-            var match = _Spies.FirstOrDefault(s => s.Id == id);
+            var match = _spies.FirstOrDefault(s => s.Id == id);
             return  match;
         }
         internal void Post(Spy newSpy)
         {
-            _Spies.Add(newSpy);
+            _spies.Add(newSpy);
         }
         internal List<Spy> GetAll()
         {
-            return _Spies;
+            return _spies;
+        }
+        internal IEnumerable<Spy> GetSkills(SkillsType skillType)
+        {
+            var spySkills = _spies.Where(s => s.Skill== skillType);
+            return spySkills;
         }
     }
 }

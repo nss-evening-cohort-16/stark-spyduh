@@ -16,9 +16,9 @@
     public enum SkillsType
     {
         Poison = 0,
-        Wiretapping = 1, 
-        Hacking = 2, 
-        MoneyLoundering = 3, 
+        Wiretapping = 1,
+        Hacking = 2,
+        MoneyLoundering = 3,
         Whistleblower = 4,
     }
 }

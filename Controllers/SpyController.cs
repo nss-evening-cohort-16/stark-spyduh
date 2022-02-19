@@ -16,7 +16,7 @@ namespace StarkSpyduh.Controllers
         {
             return _spyRepo.GetAll();
         }
-        [HttpGet("{Id}")]
+        [HttpGet("{id}")]
         public IActionResult GetSpyById(int id)
         {
             var match = _spyRepo.GetById(id);
@@ -44,6 +44,18 @@ namespace StarkSpyduh.Controllers
                 return Ok(newSpy);
             }
         }
+        [HttpGet("skill/{skill}")]
+        public IActionResult GetSpyBySkill(SkillsType skillType)
+        {
+            var matches = _spyRepo.GetSkills(skillType);
+            if (matches == null)
+            {
+                return NotFound();
+            }
+            return Ok(matches);
+
+        }
+
         private bool ValidNewSpy(Spy newSpy)
         {
             if (_spyRepo.GetById(newSpy.Id) != null)
