@@ -54,6 +54,7 @@ namespace StarkSpyduh.DataAccess
             return match;
         }
 
+
         internal void Post(Spy newSpy)
         {
             _Spies.Add(newSpy);
@@ -61,6 +62,12 @@ namespace StarkSpyduh.DataAccess
         internal List<Spy> GetAll()
         {
             return _Spies;
+        }
+
+        internal IEnumerable<Spy> GetSkills(SkillsType skillType)
+        {
+            var spySkills = _Spies.Where(s => s.Skill == skillType);
+            return spySkills;
         }
     }
 }
