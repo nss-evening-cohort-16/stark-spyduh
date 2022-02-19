@@ -16,6 +16,18 @@ namespace StarkSpyduh.Controllers
         {
             return _spyRepo.GetAll();
         }
+
+        [HttpGet("skill/{skill}")]
+        public IActionResult GetSpyBySkill(SkillsType skillType)
+        {
+            var matches = _spyRepo.GetSkills(skillType);
+            if (matches == null)
+            {
+                return NotFound();
+            }
+            return Ok(matches);
+        }
+
         [HttpGet("{Id}")]
         public IActionResult GetSpyById(int id)
         {
