@@ -9,7 +9,7 @@ namespace StarkSpyduh.DataAccess
         {
         new Spy()
         {
-            Name = "JmaesBond",
+            Name = "JamesBond",
             Id = 1,
             Friend = true,
             Enemy = false,
@@ -47,11 +47,13 @@ namespace StarkSpyduh.DataAccess
             Skill = SkillsType.Whistleblower
         },
         };
-        internal object GetById(int id)
+        internal object? GetById(int id)
         {
             var match = _Spies.FirstOrDefault(s => s.Id == id);
-            return  match;
+            if (match == null) return null;
+            return match;
         }
+
         internal void Post(Spy newSpy)
         {
             _Spies.Add(newSpy);
